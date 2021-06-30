@@ -1,1 +1,1 @@
-console.log("Hello from HTML-template");
+import "./style.css";

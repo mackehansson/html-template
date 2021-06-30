@@ -12,6 +12,7 @@ module.exports = {
     },
     devServer: {
         contentBase: "./dist",
+        watchContentBase: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -19,4 +20,23 @@ module.exports = {
             template: "public/index.html",
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.js$/i,
+                include: path.resolve(__dirname, "src"),
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env"],
+                    },
+                },
+            },
+            {
+                test: /\.css$/i,
+                include: path.resolve(__dirname, "src"),
+                use: ["style-loader", "css-loader", "postcss-loader"],
+            },
+        ],
+    },
 };
