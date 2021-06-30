@@ -1,5 +1,21 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const fs = require("fs");
+let htmlPageNames = [];
+const pages = fs.readdirSync("./src/views/");
+
+pages.forEach((page) => {
+    if (page.endsWith(".html")) {
+        htmlPageNames.push(page.split(".html")[0]);
+    }
+});
+
+let multipleHtmlPlugins = htmlPageNames.map((name) => {
+    return new HtmlWebpackPlugin({
+        template: `./src/views/${name}.html`,
+        filename: `${name}.html`,
+    });
+});
 
 module.exports = {
     mode: "development",
@@ -19,11 +35,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "public/index.html",
         }),
-        new HtmlWebpackPlugin({
-            template: "public/about.html",
-            filename: "about.html",
-        }),
-    ],
+    ].concat(multipleHtmlPlugins),
     module: {
         rules: [
             {
