@@ -9,6 +9,7 @@ module.exports = {
         filename: "main.js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
+        publicPath: "/",
     },
     devServer: {
         contentBase: "./dist",
@@ -16,8 +17,11 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Output Management",
             template: "public/index.html",
+        }),
+        new HtmlWebpackPlugin({
+            template: "public/about.html",
+            filename: "about.html",
         }),
     ],
     module: {
